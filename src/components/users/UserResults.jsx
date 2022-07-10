@@ -1,0 +1,27 @@
+import { useContext } from 'react'
+import { FaSpinner } from 'react-icons/fa'
+import GithubContext from '../../context/github/GithubContext'
+import UserItem from './UserItem'
+
+function UserResults() {
+  const {users, loading} = useContext(GithubContext)
+
+  if (!loading) {
+    return (
+      <div className='grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2'>
+        {users.map((user) => (
+          <UserItem key={user.id} user={user}/>
+        ))}
+      </div>
+    )
+  } else {
+    return (
+      <div className='flex justify-center'>
+        <FaSpinner className='animate-spin' size={'36px'}/>
+      </div>
+    )
+  }
+
+}
+
+export default UserResults
